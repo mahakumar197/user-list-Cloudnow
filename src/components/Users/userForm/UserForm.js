@@ -1,5 +1,3 @@
-// src/features/users/UserForm.js
-
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 
@@ -19,6 +17,19 @@ const UserForm = ({ newUser, setNewUser, handleAddUser }) => {
       handleAddUser();
     }
   };
+
+  const handleAddressChange = (e) => {
+    setNewUser({ ...newUser, address: e.target.value });
+  };
+
+  const handleCompanyValueChange = (e) => {
+    setNewUser({ ...newUser, company: e.target.value });
+  };
+  const addressValue =
+    typeof newUser.address === "object" ? "" : newUser.address;
+
+  const companyValue =
+    typeof newUser.company === "object" ? "" : newUser.company;
 
   return (
     <>
@@ -71,10 +82,8 @@ const UserForm = ({ newUser, setNewUser, handleAddUser }) => {
             required
             type="text"
             placeholder="Enter address"
-            value={newUser.address}
-            onChange={(e) =>
-              setNewUser({ ...newUser, address: e.target.value })
-            }
+            value={addressValue}
+            onChange={handleAddressChange}
           />
           <Form.Control.Feedback type="invalid">
             Please provide an address.
@@ -115,10 +124,8 @@ const UserForm = ({ newUser, setNewUser, handleAddUser }) => {
             required
             type="text"
             placeholder="Enter company name"
-            value={newUser.company}
-            onChange={(e) =>
-              setNewUser({ ...newUser, company: e.target.value })
-            }
+            value={companyValue}
+            onChange={handleCompanyValueChange}
           />
           <Form.Control.Feedback type="invalid">
             Please provide a company name.

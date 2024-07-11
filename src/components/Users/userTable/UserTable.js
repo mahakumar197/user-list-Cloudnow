@@ -1,8 +1,31 @@
-// UserTable.js
-
 import React from "react";
 
+const UserData = ({ address }) => {
+  if (typeof address === "string") {
+    return <td>{address}</td>;
+  } else if (typeof address === "object" && address !== null) {
+    return (
+      <td>
+        {address.street}, {address.suite}, {address.city}, {address.zipcode}
+      </td>
+    );
+  } else {
+    return <td>Invalid address format</td>;
+  }
+};
+
+const UserCompany = ({ company }) => {
+  if (typeof company === "string") {
+    return <td>{company}</td>;
+  } else if (typeof company === "object" && company !== null) {
+    return <td>{company.name}</td>;
+  } else {
+    return <td>Invalid format</td>;
+  }
+};
+
 const UserTable = ({ users }) => {
+  console.log(users, "check");
   return (
     <table className="table">
       <thead>
@@ -24,13 +47,10 @@ const UserTable = ({ users }) => {
             <td>{user.name}</td>
             <td>{user.username}</td>
             <td>{user.email}</td>
-            <td>
-              {user.address.street}, {user.address.suite}, {user.address.city},{" "}
-              {user.address.zipcode}
-            </td>
+            <UserData address={user.address} />
             <td>{user.phone}</td>
             <td>{user.website}</td>
-            <td>{user.company.name}</td>
+            <UserCompany company={user.company} />
           </tr>
         ))}
       </tbody>
